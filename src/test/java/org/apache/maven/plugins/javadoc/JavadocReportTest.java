@@ -237,7 +237,7 @@ public class JavadocReportTest
         connection.setRequestMethod( "HEAD" );
         if ( connection.getResponseCode() == 200 )
         {
-            assertTrue( FileUtils.fileRead( generatedFile, "UTF-8" ).contains( "/docs/api/java/lang/Object.html" ) );
+            assertTrue( FileUtils.fileRead( generatedFile, "UTF-8" ), FileUtils.fileRead( generatedFile, "UTF-8" ).contains( "/docs/api/java/lang/Object.html" ) );
         }
 
         assertTrue( new File( apidocs, "def/configuration/AppSample.html" ).exists() );

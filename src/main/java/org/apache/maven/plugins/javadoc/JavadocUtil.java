@@ -540,13 +540,23 @@ public class JavadocUtil
 
         if ( StringUtils.isNotEmpty( err.getOutput() ) )
         {
-            return JavadocVersion.parse( extractJavadocVersion( err.getOutput() ) );
+            JavadocVersion jv= JavadocVersion.parse( extractJavadocVersion( err.getOutput() ) );
+//            if ( "2".equals( jv.toString() ) )
+            {
+                System.out.print( "stderr: " + err.getOutput() );
+            }
+            return jv;
         }
         else if ( StringUtils.isNotEmpty( out.getOutput() ) )
         {
-            return JavadocVersion.parse( extractJavadocVersion( out.getOutput() ) );
+            JavadocVersion jv= JavadocVersion.parse( extractJavadocVersion( out.getOutput() ) );
+//            if ( "2".equals( jv.toString() ) )
+            {
+                System.out.print( "stdout: " + out.getOutput() );
+            }
+            return jv;
         }
-
+        
         throw new IllegalArgumentException( "No output found from the command line 'javadoc -J-version'" );
     }
 

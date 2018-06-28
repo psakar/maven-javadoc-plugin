@@ -400,8 +400,9 @@ public final class ResourceResolver extends AbstractLogEnabled
                 continue;
             }
 
+            final File groupFolder = new File( config.outputBasedir(), a.getGroupId() );
             final File d =
-                new File( config.outputBasedir(), a.getArtifactId() + "-" + a.getVersion() + "-" + a.getClassifier() );
+                new File( groupFolder, a.getArtifactId() + "-" + a.getVersion() + "-" + a.getClassifier() );
 
             if ( !d.exists() )
             {

@@ -19,13 +19,13 @@ package org.apache.maven.plugins.javadoc.resolver;
  * under the License.
  */
 
+import static java.util.Arrays.asList;
 import static org.codehaus.plexus.util.IOUtil.close;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -55,6 +55,8 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
+import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
@@ -89,11 +91,11 @@ public final class ResourceResolver extends AbstractLogEnabled
      */
     public static final String TEST_SOURCES_CLASSIFIER = "test-sources";
 
-    private static final List<String> SOURCE_VALID_CLASSIFIERS = Arrays.asList( SOURCES_CLASSIFIER,
+    private static final List<String> SOURCE_VALID_CLASSIFIERS = asList( SOURCES_CLASSIFIER,
                                                                                 TEST_SOURCES_CLASSIFIER );
 
     private static final List<String> RESOURCE_VALID_CLASSIFIERS =
-        Arrays.asList( AbstractJavadocMojo.JAVADOC_RESOURCES_ATTACHMENT_CLASSIFIER,
+        asList( AbstractJavadocMojo.JAVADOC_RESOURCES_ATTACHMENT_CLASSIFIER,
                        AbstractJavadocMojo.TEST_JAVADOC_RESOURCES_ATTACHMENT_CLASSIFIER );
 
     /**
@@ -412,6 +414,13 @@ public final class ResourceResolver extends AbstractLogEnabled
             try
             {
                 final UnArchiver unArchiver = archiverManager.getUnArchiver( a.getType() );
+                List<String> dependencySourceFilesExcludes = config.getDependencySourceFilesExcludes();
+                if ( dependencySourceFilesExcludes != null && dependencySourceFilesExcludes.size( ) > 0 )
+                {
+                    IncludeExcludeFileSelector fileSelector = new IncludeExcludeFileSelector( );
+                    fileSelector.setExcludes( dependencySourceFilesExcludes.toArray( new String [] {} ) );
+                    unArchiver.setFileSelectors( new FileSelector[]{ fileSelector } );
+                }
 
                 unArchiver.setDestDirectory( d );
                 unArchiver.setSourceFile( resolvedArtifact.getFile() );

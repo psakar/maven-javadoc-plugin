@@ -45,17 +45,20 @@ public class SourceResolverConfig
 
     private boolean testSourceIncluded;
 
+    private final List<String> dependencySourceFilesExcludes;
+
     /**
      * @param project {@link MavenProject}
      * @param buoildingRequest {@link ProjectBuildingRequest}
      * @param outputBasedir The output base directory.
      */
     public SourceResolverConfig( final MavenProject project, final ProjectBuildingRequest buildingRequest,
-                                 final File outputBasedir )
+                                 final File outputBasedir, final List<String> dependencySourceFilesExcludes )
     {
         this.project = project;
         this.buildingRequest = buildingRequest;
         this.outputBasedir = outputBasedir;
+        this.dependencySourceFilesExcludes = dependencySourceFilesExcludes;
     }
 
     /**
@@ -168,5 +171,13 @@ public class SourceResolverConfig
     public boolean includeTestSources()
     {
         return testSourceIncluded;
+    }
+
+    /**
+     * @return {@link #dependencySourceFilesExcludes}
+     */
+    public List<String> getDependencySourceFilesExcludes()
+    {
+        return dependencySourceFilesExcludes;
     }
 }

@@ -1714,6 +1714,20 @@ public abstract class AbstractJavadocMojo
     @Parameter( defaultValue = "true", property = "maven.javadoc.applyJavadocSecurityFix" )
     private boolean applyJavadocSecurityFix = true;
 
+    /**
+     * List of excluded files from dependency sources. Example:
+     * <pre>
+     * &lt;dependencySourceFilesExcludes&gt;
+     *   &lt;filesExclude&gt;module-info.java&lt;/filesExclude&gt;
+     *   &lt;filesExclude&gt;META-INF/versions/**\/**.* &lt;/filesExclude&gt;
+     * &lt;/dependencySourceFilesExcludes&gt;
+     * </pre>
+     *
+     * @since 3.0.0.M2
+     */
+    @Parameter
+    private List<String> dependencySourceFilesExcludes;
+
     // ----------------------------------------------------------------------
     // static
     // ----------------------------------------------------------------------
@@ -2372,7 +2386,9 @@ public abstract class AbstractJavadocMojo
     {
         return configureDependencySourceResolution(
                         new SourceResolverConfig( project, session.getProjectBuildingRequest(),
-                                                  sourceDependencyCacheDir ).withReactorProjects( reactorProjects ) );
+                                                  sourceDependencyCacheDir, dependencySourceFilesExcludes
+                                                ).withReactorProjects( reactorProjects )
+        );
     }
 
     /**

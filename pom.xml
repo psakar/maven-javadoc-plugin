@@ -30,7 +30,7 @@ under the License.
   </parent>
 
   <artifactId>maven-javadoc-plugin</artifactId>
-  <version>3.0.0-M1</version>
+  <version>3.0.0-M1-java-8</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Javadoc Plugin</name>
@@ -45,20 +45,26 @@ under the License.
   </prerequisites>
 
   <scm>
+    <connection>scm:git:https://github.com/psakar/maven-javadoc-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:psakar/maven-javadoc-plugin.git</developerConnection>
+  	<!--
     <connection>scm:svn:http://svn.apache.org/repos/asf/maven/plugins/tags/maven-javadoc-plugin-3.0.0-M1</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/plugins/tags/maven-javadoc-plugin-3.0.0-M1</developerConnection>
+    -->
     <url>http://svn.apache.org/viewvc/maven/plugins/tags/maven-javadoc-plugin-3.0.0-M1</url>
   </scm>
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/MJAVADOC</url>
   </issueManagement>
+  <!--
   <distributionManagement>
     <site>
       <id>apache.website</id>
       <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/maven/components/${maven.site.path}</url>
     </site>
   </distributionManagement>
+  -->
 
   <properties>
     <javaVersion>7</javaVersion>
